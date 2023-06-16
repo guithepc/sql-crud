@@ -1,8 +1,10 @@
 package com.pcsolutions.spring.config;
 
+import com.pcsolutions.spring.entities.Category;
 import com.pcsolutions.spring.entities.Order;
 import com.pcsolutions.spring.entities.User;
 import com.pcsolutions.spring.entities.enums.OrderStatus;
+import com.pcsolutions.spring.repositories.CategoryRepository;
 import com.pcsolutions.spring.repositories.OrderRepository;
 import com.pcsolutions.spring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @Profile("test")
@@ -22,8 +26,10 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
-    private List<Order> orderList = new ArrayList<>();
+    @Autowired
+    private CategoryRepository categoryRepository;
 
+    private List<Order> orderList = new ArrayList<>();
 
     @Override
     public void run(String... args) throws Exception {
@@ -36,6 +42,11 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.CANCELED, u2);
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.CANCELED, u1);
 
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
