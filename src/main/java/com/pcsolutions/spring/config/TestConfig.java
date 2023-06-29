@@ -1,14 +1,8 @@
 package com.pcsolutions.spring.config;
 
-import com.pcsolutions.spring.entities.Category;
-import com.pcsolutions.spring.entities.Order;
-import com.pcsolutions.spring.entities.Product;
-import com.pcsolutions.spring.entities.User;
+import com.pcsolutions.spring.entities.*;
 import com.pcsolutions.spring.entities.enums.OrderStatus;
-import com.pcsolutions.spring.repositories.CategoryRepository;
-import com.pcsolutions.spring.repositories.OrderRepository;
-import com.pcsolutions.spring.repositories.ProductRepository;
-import com.pcsolutions.spring.repositories.UserRepository;
+import com.pcsolutions.spring.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +27,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     private List<Order> orderList = new ArrayList<>();
 
@@ -60,7 +57,13 @@ public class TestConfig implements CommandLineRunner {
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
-        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+
+
 
 
         p1.getCategories().add(cat2);
@@ -71,6 +74,9 @@ public class TestConfig implements CommandLineRunner {
         p5.getCategories().add(cat2);
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
 
     }
 }
