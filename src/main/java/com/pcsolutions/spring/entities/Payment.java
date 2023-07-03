@@ -1,5 +1,6 @@
 package com.pcsolutions.spring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ public class Payment implements Serializable{
     private Instant moment;
     @OneToOne
     @MapsId
+    @JsonIgnore
     private Order order;
 
     public Payment(Long id, Instant moment, Order order) {

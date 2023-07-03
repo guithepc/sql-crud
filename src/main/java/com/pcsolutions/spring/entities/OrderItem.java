@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Objects;
 
 @Entity
@@ -70,5 +71,9 @@ public class OrderItem implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Double getSubTotal(){
+        return price * quantity;
     }
 }
