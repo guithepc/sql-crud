@@ -27,4 +27,11 @@ public class UserResource {
         User user = userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User user){
+        user = userService.insert(user);
+        return ResponseEntity.ok().body(user);
+
+    }
 }
